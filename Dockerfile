@@ -4,7 +4,7 @@ USER root
 
 # Install OpenJDK-11
 RUN apt-get update && \
-    apt-get install -y openjdk-11-jdk && \
+    apt-get install -y openjdk-8-jdk && \
     apt-get install -y ant && \
     apt-get clean;
 
@@ -15,7 +15,7 @@ RUN apt-get update && \
     update-ca-certificates -f;
 
 # Setup JAVA_HOME -- useful for docker commandline
-ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64/
+ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
 RUN export JAVA_HOME
 
 RUN apt-get update \
@@ -35,9 +35,3 @@ RUN mkdir /.opengamma/commandlinetool \
     && wget https://github.com/OpenGamma/Strata/releases/download/v2.6.9/strata-report-tool-2.6.9.zip -q -O download.zip \
     && unzip download.zip \
     && rm -f download.zip
-
-RUN mkdir /.opengamma/ijava \
-    && cd /.opengamma/ijava \
-    && wget https://github.com/SpencerPark/IJava/releases/download/v1.3.0/ijava-1.3.0.zip -q -O download.zip \
-    && unzip download.zip \
-    && python3 install.py --sys-prefix
